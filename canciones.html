@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Canción especial 🎶</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(#0d0d0d, #1a1a1a);
+      overflow: hidden;
+      font-family: 'Playfair Display', serif;
+      color: white;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      z-index: 10;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    audio {
+      position: relative;
+      z-index: 10;
+      display: block;
+      margin: 20px auto;
+    }
+
+    /* Botón volver */
+    .boton-volver {
+      z-index: 10;
+      margin-top: 30px;
+      padding: 10px 25px;
+      background-color: rgba(255,255,255,0.2);
+      border: 2px solid white;
+      color: white;
+      font-size: 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .boton-volver:hover {
+      background-color: white;
+      color: black;
+      transform: scale(1.1);
+    }
+
+    /* Contenedor para las "estrellas" (fotos cayendo) */
+    .star-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-size: cover;
+      animation-name: fall;
+      animation-timing-function: linear;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(110vh) translateX(0); opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>MI DEDICACION PARA TI... ESPERO TE GUSTE 💖</h1>
+
+<audio controls autoplay loop>
+  <source src="musica/cancion1.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5
+</audio>
+
+<!-- Botón de volver -->
+<a href="ella.html" class="boton-volver">⬅ Volver</a>
+
+<!-- Contenedor de la lluvia -->
+<div class="star-container" id="star-container"></div>
+
+<script>
+  const starContainer = document.getElementById('star-container');
+
+  // Fotos para la lluvia
+  const fotos = [
+    'fotos/ella1.jpg.jpeg',
+    'fotos/ella2.jpg.jpeg',
+    'fotos/ella3.jpg.jpeg',
+    'fotos/ella4.jpg.jpeg',
+    'fotos/ella5.jpg.jpeg'
+  ];
+
+  // Crear estrella (foto cayendo)
+  function crearEstrella() {
+    const star = document.createElement('div');
+    star.classList.add('star');
+
+    const foto = fotos[Math.floor(Math.random() * fotos.length)];
+    star.style.backgroundImage = `url(${foto})`;
+
+    star.style.left = Math.random() * window.innerWidth + 'px';
+    star.style.top = '-60px';
+
+    const size = 30 + Math.random() * 50; // 30px a 80px
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+
+    const dur = 2 + Math.random() * 3; // 2 a 5 segundos
+    star.style.animationDuration = dur + 's';
+
+    starContainer.appendChild(star);
+
+    setTimeout(() => {
+      star.remove();
+    }, dur * 1000);
+  }
+
+  // Lluvia más rápida y cantidad mayor
+  setInterval(crearEstrella, 100);
+</script>
+
+</body>
+</html>
